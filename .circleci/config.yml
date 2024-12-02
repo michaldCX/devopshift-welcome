@@ -51,7 +51,7 @@ workflows:
  build_and_deploy:
    jobs:
      - build
-         env: production
+        env: production
      - lint:
          requires:
            - build
