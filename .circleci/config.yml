@@ -5,9 +5,13 @@ orbs:
 
 jobs:
  build:
+   parameters:
+       env:
+         type: string
    docker:
      - image: cimg/openjdk:11.0  # Java build environment
    steps:
+     - run: echo "Deploying to << parameters.env >>"
      - checkout
      - run:
          name: Build the Project
@@ -40,11 +44,14 @@ jobs:
          name: Mock Deployment
          command: echo "Deployment complete."
 
+
+
 workflows:
  version: 2
  build_and_deploy:
    jobs:
      - build
+         env: production
      - lint:
          requires:
            - build
